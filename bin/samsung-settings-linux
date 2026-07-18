@@ -1,0 +1,338 @@
+#!/bin/sh
+#
+# Samsung Settings
+# Author : Aditya Ranjan Samal
+#
+
+###############################################################################
+# Determine Project Directory
+###############################################################################
+
+PROJECT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+###############################################################################
+# Read Version
+###############################################################################
+
+if [ -r "$PROJECT_DIR/VERSION" ]; then
+    VERSION=$(sed -n '1p' "$PROJECT_DIR/VERSION")
+else
+    VERSION="Unknown"
+fi
+
+###############################################################################
+# Read Current Year
+###############################################################################
+
+YEAR=$(date '+%Y' 2>/dev/null)
+
+if [ -z "$YEAR" ]; then
+    YEAR="Unknown"
+fi
+
+###############################################################################
+# Determine Terminal Width
+###############################################################################
+
+if [ -n "${COLUMNS:-}" ]; then
+    WIDTH=$COLUMNS
+else
+    WIDTH=$(stty size 2>/dev/null | awk '{print $2}')
+
+    if [ -z "$WIDTH" ]; then
+        WIDTH=80
+    fi
+fi
+
+###############################################################################
+# Main Loop
+###############################################################################
+
+while :
+do
+    clear
+
+    ###########################################################################
+    # Header
+    ###########################################################################
+
+    i=1
+    while [ "$i" -le "$WIDTH" ]
+    do
+        printf '═'
+        i=$((i + 1))
+    done
+    printf '\n'
+
+    printf '%*s\n' $(((${#VERSION} + WIDTH + 6) / 2)) "SAMSUNG SETTINGS"
+    printf '%*s\n' $(((${#VERSION} + WIDTH + 8) / 2)) "Version $VERSION"
+
+    i=1
+    while [ "$i" -le "$WIDTH" ]
+    do
+        printf '═'
+        i=$((i + 1))
+    done
+    printf '\n\n'
+
+    ###########################################################################
+    # Menu
+    ###########################################################################
+
+    printf '  1.   Battery\n'
+    printf '  2.   Camera\n'
+    printf '  3.   Lid\n'
+    printf '  4. 󰓅  Power Mode\n'
+    printf '\n'
+    printf '  5.   About\n'
+    printf '  6.   Terms and Conditions\n'
+    printf '  7.   Supported Models\n'
+    printf '\n'
+    printf '  0.   Exit\n'
+
+    printf '\n'
+
+    ###########################################################################
+    # Footer
+    ###########################################################################
+
+    i=1
+    while [ "$i" -le "$WIDTH" ]
+    do
+        printf '═'
+        i=$((i + 1))
+    done
+    printf '\n'
+
+    FOOTER="© ADITYA RANJAN SAMAL $YEAR"
+
+    printf '%*s\n' $(((${#FOOTER} + WIDTH) / 2)) "$FOOTER"
+
+    i=1
+    while [ "$i" -le "$WIDTH" ]
+    do
+        printf '═'
+        i=$((i + 1))
+    done
+    printf '\n'
+
+    ###########################################################################
+    # Read User Choice
+    ###########################################################################
+
+    printf '\nSelect an option: '
+    IFS= read -r CHOICE
+
+    case "$CHOICE" in
+
+    1)
+        MODULE="$PROJECT_DIR/modules/samsung_battery.sh"
+        MODULE_NAME="Battery"
+        ;;
+
+    2)
+        MODULE="$PROJECT_DIR/modules/samsung_camera_control.sh"
+        MODULE_NAME="Camera"
+        ;;
+
+    3)
+        MODULE="$PROJECT_DIR/modules/samsung_lid_control.sh"
+        MODULE_NAME="Lid"
+        ;;
+
+    4)
+        MODULE="$PROJECT_DIR/modules/samsung_power_mode.sh"
+        MODULE_NAME="Power Mode"
+        ;;
+    
+
+    5)
+    clear
+
+    FILE="$PROJECT_DIR/AUTHORS"
+
+    if [ ! -f "$FILE" ]; then
+        printf "Error: AUTHORS file not found.\n"
+    elif [ ! -r "$FILE" ]; then
+        printf "Error: AUTHORS file is not readable.\n"
+    elif [ ! -s "$FILE" ]; then
+        printf "Error: AUTHORS file is empty.\n"
+    else
+
+        printf "═══════════════════════════════════════════════════════════════\n"
+        printf "                           About\n"
+        printf "═══════════════════════════════════════════════════════════════\n\n"
+
+        printf "┌────────────────────────────┬────────────────────────────────────────────────────────────────────────────────────┐\n"
+
+        while IFS= read -r LINE
+        do
+            KEY=${LINE%%:*}
+            VALUE=${LINE#*: }
+
+            printf "│ %-12s  %-95s \n" "$KEY" "$VALUE"
+
+        done < "$FILE"
+
+        printf "└────────────────────────────┴────────────────────────────────────────────────────────────────────────────────────┘\n"
+
+    fi
+
+    printf "\nPress ENTER to return to the main menu..."
+    IFS= read -r
+    continue
+    ;;
+
+
+
+
+
+    6)
+    clear
+
+    FILE="$PROJECT_DIR/DISCLAIMER"
+
+    if [ ! -f "$FILE" ]; then
+        printf "Error: DISCLAIMER file not found.\n"
+    elif [ ! -r "$FILE" ]; then
+        printf "Error: DISCLAIMER file is not readable.\n"
+    elif [ ! -s "$FILE" ]; then
+        printf "Error: DISCLAIMER file is empty.\n"
+    else
+
+        printf "═══════════════════════════════════════════════════════════════\n"
+        printf "                  Terms and Conditions\n"
+        printf "═══════════════════════════════════════════════════════════════\n\n"
+
+        cat "$FILE"
+
+    fi
+
+    printf "\n\nPress ENTER to return to the main menu..."
+    IFS= read -r
+    continue
+    ;;
+
+
+
+
+
+    7)
+    clear
+
+    FILE="$PROJECT_DIR/MODELS"
+
+    if [ ! -f "$FILE" ]; then
+        printf "Error: MODELS file not found.\n"
+
+    elif [ ! -r "$FILE" ]; then
+        printf "Error: MODELS file is not readable.\n"
+
+    elif [ ! -s "$FILE" ]; then
+        printf "Error: MODELS file is empty.\n"
+
+    else
+
+        printf "═══════════════════════════════════════════════════════════════════════════════════════\n"
+        printf "                               Supported Models\n"
+        printf "═══════════════════════════════════════════════════════════════════════════════════════\n\n"
+
+        printf "┌──────┬──────────────────────────────┬──────────────────────────────┬────────────────┐\n"
+        printf "│ No.  │ Model                        │ Device                       │ Status         │\n"
+        printf "├──────┼──────────────────────────────┼──────────────────────────────┼────────────────┤\n"
+
+        COUNT=1
+
+        while IFS='|' read -r MODEL DEVICE STATUS
+        do
+            [ -z "$MODEL" ] && continue
+
+            printf "│ %-4s │ %-28s │ %-28s │ %-14s │\n" \
+                "$COUNT" \
+                "$MODEL" \
+                "$DEVICE" \
+                "$STATUS"
+
+            COUNT=$((COUNT + 1))
+
+        done < "$FILE"
+
+        printf "└──────┴──────────────────────────────┴──────────────────────────────┴────────────────┘\n"
+
+    fi
+
+    printf "\nPress ENTER to return to the main menu..."
+    IFS= read -r
+    continue
+    ;;
+
+
+
+
+
+
+
+
+
+    0)
+        clear
+        printf "Exiting the samsung-settings-linux module. Thanks for using it!\n"
+        exit 0
+        ;;
+
+    *)
+        clear
+        printf "Invalid menu selection.\n"
+        printf "\nPress ENTER to return to the main menu..."
+        IFS= read -r
+        continue
+        ;;
+
+esac
+
+###############################################################################
+# Module Validation
+###############################################################################
+
+if [ ! -d "$PROJECT_DIR/modules" ]; then
+    clear
+    printf "Error: Required directory 'modules' was not found.\n"
+    printf "\nPress ENTER to return to the main menu..."
+    IFS= read -r
+    continue
+fi
+
+if [ ! -f "$MODULE" ]; then
+    clear
+    printf "Error: %s module was not found.\n" "$MODULE_NAME"
+    printf "\nPress ENTER to return to the main menu..."
+    IFS= read -r
+    continue
+fi
+
+if [ ! -x "$MODULE" ]; then
+    clear
+    printf "Error: %s module is not executable.\n" "$MODULE_NAME"
+    printf "\nPress ENTER to return to the main menu..."
+    IFS= read -r
+    continue
+fi
+
+###############################################################################
+# Execute Module
+###############################################################################
+
+clear
+
+"$MODULE"
+
+STATUS=$?
+
+if [ "$STATUS" -ne 0 ]; then
+    printf "\n%s module exited with status %s.\n" "$MODULE_NAME" "$STATUS"
+fi
+
+printf "\nPress ENTER to return to the main menu..."
+IFS= read -r
+
+done

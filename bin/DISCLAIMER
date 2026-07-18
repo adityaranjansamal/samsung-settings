@@ -1,0 +1,43 @@
+Samsung Settings
+================
+
+Disclaimer
+
+Samsung Settings is an independent software project developed and
+maintained by Aditya Ranjan Samal.
+
+This project is not affiliated with, endorsed by, sponsored by,
+or associated with Samsung Electronics Co., Ltd. in any way.
+
+"Samsung" and "Galaxy Book" are trademarks of Samsung Electronics
+Co., Ltd. They are referenced solely for the purpose of identifying
+compatible hardware.
+
+This project relies on the samsung-galaxybook Linux kernel module
+developed by Joshua Grisham to provide hardware interfaces used by
+supported Samsung Galaxy Book laptops. Credit for the kernel module
+belongs entirely to its original author and contributors.
+
+Samsung Settings acts only as a user-friendly configuration interface
+for supported kernel features. It does not modify the Linux kernel,
+firmware, BIOS/UEFI, or embedded controller firmware.
+
+Although reasonable care has been taken during development and testing,
+this software is provided "AS IS", without warranty of any kind,
+express or implied.
+
+By using this software, you acknowledge that:
+
+ • You understand the changes you are applying.
+ • You are responsible for any modifications made to your system.
+ • You have backed up important data before making system changes.
+
+The author shall not be held liable for any hardware damage,
+software corruption, data loss, system instability, warranty issues,
+or any direct or indirect damages resulting from the use or misuse
+of this software.
+
+If you do not agree with these terms, do not use this software.
+
+Copyright © 2026
+Aditya Ranjan Samal
