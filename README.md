@@ -130,23 +130,31 @@ included in this repository.
 
 ## Main Menu
 
-*Coming soon.*
+<img width="1920" height="1080" alt="main_menu" src="https://github.com/user-attachments/assets/53ef16f4-5b5f-497e-86a9-06229307bd60" />
+
 
 ## Battery Module
 
-*Coming soon.*
+<img width="1920" height="1080" alt="battery_info" src="https://github.com/user-attachments/assets/20f15422-706e-430d-974e-0c3dd3a718c7" />
+
 
 ## Camera Module
 
-*Coming soon.*
+<img width="1920" height="1080" alt="camera_info" src="https://github.com/user-attachments/assets/c659aa3a-6a8b-4ef9-b342-045247e54bb2" />
+
 
 ## Power Mode Module
 
-*Coming soon.*
+<img width="1920" height="1080" alt="power_mode_info" src="https://github.com/user-attachments/assets/bcdfa4cc-a6ae-4659-8d85-19524279cd0a" />
+
 
 ## Lid Module
 
-*Coming soon.*
+<img width="1920" height="1080" alt="lid_info" src="https://github.com/user-attachments/assets/d3dd3d0f-61bd-4609-865e-140d7d127961" />
+
+
+These are the 1st pages of each module. Obiviously in the actual script there are multiple options and menus to achieve specifc task which will be shown in the complete walkthrough video.
+
 
 ------------------------------------------------------------------------
 
